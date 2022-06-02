@@ -1,0 +1,19 @@
+from game.shared.color import Color
+
+
+CELL_SIZE = 15
+MAX_X = 900#1350#900
+MAX_Y = 600#900#600
+ROWS = MAX_X / CELL_SIZE #20#30#20
+COLUMNS = MAX_Y / CELL_SIZE #40 
+FRAME_RATE = 15
+FONT_SIZE = 15
+CAPTION = "Centipede"
+SNAKE_LENGTH = 8
+PLAYER_LENGTH = 1
+WHITE = Color(255, 255, 255)
+RED = Color(255, 0, 0)
+YELLOW = Color(255, 255, 0)
+GREEN = Color(0, 255, 0)
+BLUE = Color(0, 0, 255)
+ORANGE = Color(255, 165, 0)

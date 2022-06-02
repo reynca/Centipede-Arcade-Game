@@ -138,7 +138,7 @@ class ControlActorsAction(Action):
         
         if bullet_p.equals(Point(bullet_p.get_x(), 0)):
             bullet.set_shot_fired(False)
-            player2_p = player2_p.add(Point(0, 15))
+            # player2_p = player2_p.add(Point(0, 0))
 
         elif self._keyboard_service.is_key_down('space'):
             self._directionPlayer1 = Point(0, -constants.CELL_SIZE)

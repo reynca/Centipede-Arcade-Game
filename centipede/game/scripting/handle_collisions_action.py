@@ -74,62 +74,58 @@ class HandleCollisionsAction(Action):
         segments = snake.get_segments()[1:]
         player2 = cast.get_first_actor("player2")
         player2_head = player2.get_segments()[0]
-        player2_segments = player2.get_segments()[1:]
-
-        if snake._segments != []:
-            if player2_head.get_position().equals(head.get_position()):
-                    self._is_game_over = True
-                    self._message.set_text("Game Over")
-            elif bullet.get_position().equals(head.get_position()):
-                    snake._segments.pop(len(snake._segments)-1)
-                    constants.SNAKE_LENGTH -= 1
-                    bullet.set_shot_fired(False)
-                    score.add_points(20)
-                    bullet.set_position(player2_head.get_position())
-
-            for segment in segments:
-                # if head.get_position().equals(segment.get_position()):
-                #     self._is_game_over = True 
-                #     self._message.set_text("Blue Wins!")
-                if player2_head.get_position().equals(segment.get_position()):
-                    self._is_game_over = True
-                    self._message.set_text("Game Over")
-                if bullet.get_position().equals(segment.get_position()):
-                    snake._segments.pop(len(snake._segments)-1)
-                    constants.SNAKE_LENGTH -= 1
-                    bullet.set_shot_fired(False)
-                    score.add_points(20)
-                    bullet.set_position(player2_head.get_position())
-
-                # elif bullet.get_position().equals(head.get_position()):
-                #     snake._segments.pop(len(snake._segments)-1)
-                #     constants.SNAKE_LENGTH -= 1
-                #     bullet.set_shot_fired(False)
-                #     score.add_points(20)
-                #     bullet.set_position(player2_head.get_position())
-
-                # elif len(snake._segments) == 1 and bullet.get_position().equals(head.get_position()):
-                #     snake._segments.pop(len(snake._segments)-1)
-                #     constants.SNAKE_LENGTH -= 1
-                #     bullet.set_shot_fired(False)
-                #     score.add_points(20)
-                #     bullet.set_position(player2_head.get_position())
-
-                # if constants.SNAKE_LENGTH <= 0:
-                #     self._is_game_over = True
-                #     self._message.set_text("You Win!")
-            else:
-                self._is_game_over = True
-                self._message.set_text("You Win!")
 
         
-        for segment in player2_segments:
-            # if player2_head.get_position().equals(segment.get_position()):
-            #     self._is_game_over = True
-            #     self._message.set_text("Green Wins!")
-            if head.get_position().equals(segment.get_position()):
+        if player2_head.get_position().equals(head.get_position()):
                 self._is_game_over = True
                 self._message.set_text("Game Over")
+        elif bullet.get_position().equals(head.get_position()):
+            if len(snake._segments) == 1:
+                self._is_game_over = True
+                score.add_points(20)
+                bullet.set_position(player2_head.get_position())
+            else:
+                snake._segments.pop(len(snake._segments)-1)
+                constants.SNAKE_LENGTH -= 1
+                bullet.set_shot_fired(False)
+                score.add_points(20)
+                bullet.set_position(player2_head.get_position())
+        for segment in segments:
+            # if head.get_position().equals(segment.get_position()):
+            #     self._is_game_over = True 
+            #     self._message.set_text("Blue Wins!")
+            if player2_head.get_position().equals(segment.get_position()):
+                self._is_game_over = True
+                self._message.set_text("Game Over")
+            if bullet.get_position().equals(segment.get_position()):
+                snake._segments.pop(len(snake._segments)-1)
+                constants.SNAKE_LENGTH -= 1
+                bullet.set_shot_fired(False)
+                score.add_points(20)
+                bullet.set_position(player2_head.get_position())
+            # elif bullet.get_position().equals(head.get_position()):
+            #     snake._segments.pop(len(snake._segments)-1)
+            #     constants.SNAKE_LENGTH -= 1
+            #     bullet.set_shot_fired(False)
+            #     score.add_points(20)
+            #     bullet.set_position(player2_head.get_position())
+
+            # elif len(snake._segments) == 1 and bullet.get_position().equals(head.get_position()):
+            #     snake._segments.pop(len(snake._segments)-1)
+            #     constants.SNAKE_LENGTH -= 1
+            #     bullet.set_shot_fired(False)
+            #     score.add_points(20)
+            #     bullet.set_position(player2_head.get_position())
+
+            # if constants.SNAKE_LENGTH <= 0:
+            #     self._is_game_over = True
+            #     self._message.set_text("You Win!")
+
+
+            #     print('game')
+            #     self._is_game_over = True
+            #     self._message.set_text("You Win!")
+
     
         
     def _handle_game_over(self, cast):

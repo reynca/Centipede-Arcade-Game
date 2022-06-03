@@ -18,6 +18,7 @@ class HandleCollisionsAction(Action):
     def __init__(self):
         """Constructs a new HandleCollisionsAction."""
         self._is_game_over = False
+        self._player_win = False
         self._message = Actor()
 
     def execute(self, cast, script):
@@ -84,6 +85,8 @@ class HandleCollisionsAction(Action):
                 self._is_game_over = True
                 score.add_points(20)
                 bullet.set_position(player2_head.get_position())
+                self._message.set_text("You Win!")
+                self._player_win = True
             else:
                 snake._segments.pop(len(snake._segments)-1)
                 constants.SNAKE_LENGTH -= 1
@@ -145,16 +148,17 @@ class HandleCollisionsAction(Action):
             y = int(constants.MAX_Y / 2)
             position = Point(x, y)
 
-            # message = Actor()
-            # message.set_text("Game Over!")
             self._message.set_position(position)
             cast.add_actor("messages", self._message)
+            if self._player_win:
+                segments[0].set_text(" ")
+            
 
             for segment in segments:
                 segment.set_color(constants.WHITE)
-                # segment.set_velocity(0)
+                
             for segment in player2_segments:
                 segment.set_color(constants.WHITE)
-                # segment.set_velocity(0)
+                
             for food in foodsList:
                 food.set_color(constants.WHITE)

@@ -1,4 +1,5 @@
-from email import message
+import json
+from pydoc import importfile
 import constants
 from game.casting.actor import Actor
 from game.scripting.action import Action
@@ -20,6 +21,9 @@ class HandleCollisionsAction(Action):
         self._is_game_over = False
         self._player_win = False
         self._message = Actor()
+        self._scoreBoard = Actor()
+        self._names = []
+        self._scores = []
 
     def execute(self, cast, script):
         """Executes the handle collisions action.
@@ -45,7 +49,6 @@ class HandleCollisionsAction(Action):
         #       foodsList.remove(food)
         score = cast.get_first_actor("scores")
         foodsList = cast.get_all_actors_group("foods")
-        snake = cast.get_first_actor("snakes")
         bullet = cast.get_first_actor("bullet")
         player2 = cast.get_first_actor("player2")
         player2_head = player2.get_head()
@@ -138,18 +141,22 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
+            self._import_file(self._names,"names","highscores.json")
             snake = cast.get_first_actor("snakes")
             segments = snake.get_segments()
             player2 = cast.get_first_actor("player2")
             player2_segments = player2.get_segments()
             foodsList = cast.get_all_actors_group("foods")
-
+            
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
             position = Point(x, y)
 
             self._message.set_position(position)
             cast.add_actor("messages", self._message)
+            self._scoreBoard.set_position(position.add(Point(0,15)))
+            cast.add_actor("scoreBoard", self._scoreBoard)
+            self._scoreBoard.set_text(f"1st {self._names[0]}")
             if self._player_win:
                 segments[0].set_text(" ")
             
@@ -162,3 +169,10 @@ class HandleCollisionsAction(Action):
                 
             for food in foodsList:
                 food.set_color(constants.WHITE)
+    
+    def _import_file(self, dictionary, section, file_name):
+    # opening file and saving items to desired dictionary/list
+        f = open(file_name)
+        dict = json.load(f)
+        for i in dict[section]:
+            dictionary.append(i)

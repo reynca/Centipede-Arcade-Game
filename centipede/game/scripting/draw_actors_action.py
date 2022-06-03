@@ -34,6 +34,7 @@ class DrawActorsAction(Action):
         player2_segments = player2.get_segments()
         segments = snake.get_segments()
         messages = cast.get_actors("messages")
+        scoreBoard = cast.get_actors("scoreBoard")
         bullet = cast.get_first_actor("bullet")
 
         self._video_service.clear_buffer()
@@ -45,4 +46,5 @@ class DrawActorsAction(Action):
         self._video_service.draw_actors(player2_segments)
         self._video_service.draw_actor(score)
         self._video_service.draw_actors(messages, True)
+        self._video_service.draw_actors(scoreBoard, True)
         self._video_service.flush_buffer()

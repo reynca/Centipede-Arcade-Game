@@ -83,7 +83,7 @@ class HandleCollisionsAction(Action):
         elif bullet.get_position().equals(head.get_position()):
             if len(snake._segments) == 1:
                 self._is_game_over = True
-                score.add_points(20)
+                score.add_points(50)
                 bullet.set_position(player2_head.get_position())
                 self._message.set_text("You Win!")
                 self._player_win = True

@@ -22,7 +22,7 @@ class HandleCollisionsAction(Action):
         self._player_win = False
         self._message = Actor()
         self._scoreBoard = Actor()
-        self._names = []
+        self._names = ["Hi"]
         self._scores = []
 
     def execute(self, cast, script):
@@ -141,7 +141,7 @@ class HandleCollisionsAction(Action):
             cast (Cast): The cast of Actors in the game.
         """
         if self._is_game_over:
-            self._import_file(self._names,"names","highscores.json")
+            # self._import_file(self._names,"names","highscores.json")
             snake = cast.get_first_actor("snakes")
             segments = snake.get_segments()
             player2 = cast.get_first_actor("player2")

@@ -24,7 +24,6 @@ def main():
     
     # create the cast
     number = randint(constants.ROWS - 10 ,constants.ROWS)
-    print(number)
     cast = Cast()
     for i in range(number):
         cast.add_actor("foods", Food())
